@@ -32,15 +32,15 @@ public class PlayerFollowCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        // 水平回転の更新
-        hRotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * turnSpeed, 0);
-
-        // カメラの回転(transform.rotation)の更新
-        // 方法1 : 垂直回転してから水平回転する合成回転とします
-        transform.rotation = hRotation * vRotation;
-
         // カメラの位置(transform.position)の更新
+
+        //回転を更新
+        hRotation = Quaternion.Euler(0, JoyStickCam.rotX, 0);
+
+        transform.rotation = hRotation * vRotation;
         // player位置から距離distanceだけ手前に引いた位置を設定します(位置補正版)
         transform.position = player.position + new Vector3(0, 3, 0) - transform.rotation * Vector3.forward * distance;
+
+        
     }
 }
