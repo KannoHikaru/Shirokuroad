@@ -11,7 +11,8 @@ public class EnemyAnimationManager : MonoBehaviour
         Chase,
         Attack1,
         Attack2,
-        Attack3
+        Attack3,
+        Attack
     }
 
     public EnemyState[] cangedstates;
@@ -25,7 +26,7 @@ public class EnemyAnimationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        
         //currentState = State.Idle.ToString();
     }
 

@@ -1733,7 +1733,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8cfffae501f9e849af2bacceaacc32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
+  currentstate: 0
+  eAnm: {fileID: 1557287162}
 --- !u!65 &1557287152
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1805,26 +1806,12 @@ MonoBehaviour:
   cangedstates: 0000000001000000020000000300000004000000
   transitionDuration: 0.1
   curretState: 0
-  animator: {fileID: 0}
---- !u!111 &1557287164
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  animator: {fileID: 1557287165}
+--- !u!95 &1557287165 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 1cd4a262b4a4ac3439605c82e4da02d0, type: 3}
+  m_PrefabInstance: {fileID: 1368355969}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1557287145}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: -203655887218126122, guid: 8eb9e53ae4d7cb940928a131a9cf859d, type: 3}
-  - {fileID: -203655887218126122, guid: 7a5265b68007d924a8cb6508ced79c06, type: 3}
-  - {fileID: -203655887218126122, guid: 4604f7dc783e4ec40b93afd3b66de7c7, type: 3}
-  - {fileID: -203655887218126122, guid: 360fa055ae8a9484fa95641e5fa4496b, type: 3}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &1762792780
 GameObject:
   m_ObjectHideFlags: 0
