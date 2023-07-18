@@ -5,10 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public bool floorFlag;
-    public GameObject[] whiteFloors;
-    public GameObject[] blackFloors;
+    //public GameObject[] whitehideObjects;
+    //public GameObject[] blackhideObjects;
     public GameObject playerCamera;
-    public GameObject[] floors;
+    public GameObject[] hideObjects;
     MeshRenderer floorMr;
     public static GameManager instance = null;
     // Start is called before the first frame update
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
        
     }
 
-    /*private void ChangeFloors()
+    /*private void ChangehideObjects()
     {
 
         if (Input.GetKeyDown(KeyCode.C) && floorFlag == true)
@@ -50,12 +50,12 @@ public class GameManager : MonoBehaviour
 
         if (floorFlag)
         {
-            foreach (GameObject floor in whiteFloors)
+            foreach (GameObject floor in whitehideObjects)
             {
                 floor.SetActive(true);
             }
 
-            foreach (GameObject floor in blackFloors)
+            foreach (GameObject floor in blackhideObjects)
             {
                 floor.SetActive(false);
             }
@@ -65,12 +65,12 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            foreach (GameObject floor in blackFloors)
+            foreach (GameObject floor in blackhideObjects)
             {
                 floor.SetActive(true);
             }
 
-            foreach (GameObject floor in whiteFloors)
+            foreach (GameObject floor in whitehideObjects)
             {
                 floor.SetActive(false);
             }
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
 
         if (floorFlag)
         {
-            foreach (GameObject floor in floors)
+            foreach (GameObject floor in hideObjects)
             {
                 floorMr = floor.GetComponent<MeshRenderer>();
                 floorMr.material.color = new Color(0, 0, 0, 0.0f);
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            foreach (GameObject floor in floors)
+            foreach (GameObject floor in hideObjects)
             {
                 floorMr = floor.GetComponent<MeshRenderer>();
                 floorMr.material.color = new Color(0, 0, 0, 1.0f);
