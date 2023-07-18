@@ -1036,7 +1036,7 @@ Animator:
   m_GameObject: {fileID: 1000139470}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b2798631e8f246e489fbfbb91c98ae5b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3f72795e875b9c640b82204086d5e4c0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1056,7 +1056,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000139470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8e1e6f821b1b96459d8710731379f43, type: 3}
+  m_Script: {fileID: 11500000, guid: 479cdd3aba047ee45a348aecc0045212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
@@ -1846,7 +1846,7 @@ Animator:
   m_GameObject: {fileID: 1409650013}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8dee92818579c064983c8ffda0520470, type: 2}
+  m_Controller: {fileID: 9100000, guid: dc2be71bc518f8641991557df7877b8b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1866,10 +1866,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1409650013}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a14b4f0d2401aa41bb65145a37b0039, type: 3}
+  m_Script: {fileID: 11500000, guid: f1d1ecbc43a4b90478eaee53dff96543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door_Switch: {fileID: 1000139470}
+  switchClass: {fileID: 1000139477}
 --- !u!1 &1497338987 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 097920fd86a1000429e75fe8641fd44a, type: 3}
