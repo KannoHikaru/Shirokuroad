@@ -5,10 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public bool floorFlag;
-    //public GameObject[] whitehideObjects;
-    //public GameObject[] blackhideObjects;
+    public GameObject[] whiteWorldObjects;
+    public GameObject[] blackWorldObjects;
     public GameObject playerCamera;
-    public GameObject[] hideObjects;
+
     MeshRenderer floorMr;
     public static GameManager instance = null;
     // Start is called before the first frame update
@@ -94,10 +94,16 @@ public class GameManager : MonoBehaviour
 
         if (floorFlag)
         {
-            foreach (GameObject floor in hideObjects)
+            foreach (GameObject floor in whiteWorldObjects)
             {
                 floorMr = floor.GetComponent<MeshRenderer>();
                 floorMr.material.color = new Color(0, 0, 0, 0.0f);
+            }
+
+            foreach (GameObject floor in blackWorldObjects)
+            {
+                floorMr = floor.GetComponent<MeshRenderer>();
+                floorMr.material.color = new Color(255.0f, 255.0f, 255.0f, 1.0f);
             }
 
             playerCamera.GetComponent<UnityEngine.Camera>().backgroundColor = Color.black;
@@ -105,10 +111,16 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            foreach (GameObject floor in hideObjects)
+            foreach (GameObject floor in whiteWorldObjects)
             {
                 floorMr = floor.GetComponent<MeshRenderer>();
                 floorMr.material.color = new Color(0, 0, 0, 1.0f);
+            }
+
+            foreach (GameObject floor in blackWorldObjects)
+            {
+                floorMr = floor.GetComponent<MeshRenderer>();
+                floorMr.material.color = new Color(255.0f, 255.0f, 255.0f, 0.0f);
             }
 
             playerCamera.GetComponent<UnityEngine.Camera>().backgroundColor = Color.white;
