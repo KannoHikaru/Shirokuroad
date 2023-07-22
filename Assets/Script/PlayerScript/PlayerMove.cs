@@ -28,6 +28,7 @@ public class PlayerMove : MonoBehaviour
         isGround = false;
         Debug.Log(isAttackPressed);
         count = 0;
+        
     }
 
     // Update is called once per frame
@@ -92,6 +93,7 @@ public class PlayerMove : MonoBehaviour
                 anm.Play("Jumping");
                 isGround = false;
             }
+
 
         }
 

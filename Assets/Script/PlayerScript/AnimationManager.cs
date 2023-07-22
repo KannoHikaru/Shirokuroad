@@ -12,7 +12,8 @@ public class AnimationManager : MonoBehaviour
         Attack1,
         Attack2,
         Attack3,
-        Jumping
+        Jumping,
+        Rolling
     }
 
     public State[] cangedstates;
@@ -43,7 +44,7 @@ public class AnimationManager : MonoBehaviour
             if (an.ToString() == newState)
             {
                 animator.CrossFadeInFixedTime(newState, transitionDuration);
-                animator.Play(newState);
+                //animator.Play(newState);
                 currentState = newState;
             }
         }
