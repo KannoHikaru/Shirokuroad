@@ -35,7 +35,14 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
 
-        if (jsm.joyStick.activeSelf)
+
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            anm.Play("Rolling");
+        }
+
+        if (jsm.joyStick.activeSelf && !isAttacking)
         {
             velocity = Vector3.zero;
             if (JoyStickMove.joyStickPosY > 0)
@@ -62,15 +69,6 @@ public class PlayerMove : MonoBehaviour
             // カメラの水平回転(refCamera.hRotation)で回した移動方向(velocity)を足し込みます
             transform.position += refCamera.hRotation * velocity;
 
-            //動くべき方向を変数に格納
-            /*Vector3 moveDir = ((transform.forward * JoyStickMove.joyStickPosY) +
-                (transform.right * JoyStickMove.joyStickPosX)).normalized;*/
-
-            //回転を更新
-            //transform.rotation = Quaternion.Euler(0, JoyStickCam.rotX, 0);
-
-            //ポジション更新
-            //transform.position += moveDir * speed * Time.deltaTime;
 
         }
 
@@ -94,6 +92,7 @@ public class PlayerMove : MonoBehaviour
                 isGround = false;
             }
 
+            
 
         }
 
@@ -118,12 +117,16 @@ public class PlayerMove : MonoBehaviour
                     if(count == 2)
                     {
                        anm.Play("Attack3");
+                       
                     }
 
                     isAttackPressed = false;
-                    Invoke("AttackComplete", attackDelay);
+
+                    var state = anm.animator.GetCurrentAnimatorStateInfo(0);
+                    Invoke("AttackComplete", state.length);
 
                     count = 0;
+
 
 
                     
@@ -139,10 +142,23 @@ public class PlayerMove : MonoBehaviour
     public void AttackComplete()
     {
         isAttacking = false;
+
     }
 
+    public void AttackComboReset()
+    {
+        if(count == 2)
+        {
+            count = 0;
+        }
+    }
     public void AttackStart()
     {
+
+        if(count == -1)
+        {
+            count = 0;
+        }
         
         if (anm.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
         {
@@ -152,6 +168,11 @@ public class PlayerMove : MonoBehaviour
         if (anm.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
         {
             count = 2;
+        }
+
+        if (anm.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
+        {
+            count = -1;
         }
         isAttackPressed = true;
     }
@@ -168,11 +189,5 @@ public class PlayerMove : MonoBehaviour
             isGround = false;
     }
 
-    /*IEnumerator AnimationChange()
-    {
-        var state = anm.animator.GetCurrentAnimatorStateInfo(0);
-        yield return new WaitForSeconds(state.length);
-        attackFlag = false;
-    }*/
 
 }

@@ -44,7 +44,7 @@ public class EnemyAnimationManager : MonoBehaviour
             if (an.ToString() == newState)
             {
                 animator.CrossFadeInFixedTime(newState, transitionDuration);
-                animator.Play(newState);
+                //animator.Play(newState);
                 currentState = newState;
             }
         }

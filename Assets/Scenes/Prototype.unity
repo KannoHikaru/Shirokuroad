@@ -1934,7 +1934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3973aada876ada4448c595651c2e5ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cangedstates: 000000000100000002000000030000000400000005000000
+  cangedstates: 00000000010000000200000003000000040000000500000006000000
   transitionDuration: 0.2
   curretState: 0
   animator: {fileID: 0}
@@ -2071,7 +2071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cangedstates: 0000000001000000020000000300000004000000
-  transitionDuration: 0.1
+  transitionDuration: 0.3
   curretState: 0
   animator: {fileID: 1557287165}
 --- !u!95 &1557287165 stripped
