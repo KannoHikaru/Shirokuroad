@@ -17,9 +17,11 @@ public class PlayerMove : MonoBehaviour
     private bool isAttacking;
     [SerializeField] private Vector3 velocity;
     private int count;
-
+    private bool isAvoidPressed;
+    private AnimatorStateInfo state;
     [SerializeField]
     private float attackDelay;
+    private bool isAvoiding;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +41,8 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            anm.Play("Rolling");
+            isAvoidPressed = true;
+            
         }
 
         if (jsm.joyStick.activeSelf && !isAttacking)
@@ -72,7 +75,7 @@ public class PlayerMove : MonoBehaviour
 
         }
 
-        if (isGround && !isAttacking)
+        if (isGround && !isAttacking && !isAvoiding)
         {
             if (jsm.joyStick.activeSelf)
             {
@@ -84,6 +87,7 @@ public class PlayerMove : MonoBehaviour
             {
                 anm.Play("Idle");
             }
+            
 
             if (Input.GetKeyDown("space"))
             {
@@ -94,6 +98,19 @@ public class PlayerMove : MonoBehaviour
 
             
 
+        }
+
+        if (isAvoidPressed)
+        {
+            if (!isAvoiding)
+            {
+                isAvoiding = true;
+                anm.Play("Rolling");
+                isAvoidPressed = false;
+
+                state = anm.animator.GetCurrentAnimatorStateInfo(0);
+                Invoke("AvoidFinish", state.length);
+            }
         }
 
         
@@ -122,7 +139,7 @@ public class PlayerMove : MonoBehaviour
 
                     isAttackPressed = false;
 
-                    var state = anm.animator.GetCurrentAnimatorStateInfo(0);
+                    state = anm.animator.GetCurrentAnimatorStateInfo(0);
                     Invoke("AttackComplete", state.length);
 
                     count = 0;
@@ -139,10 +156,15 @@ public class PlayerMove : MonoBehaviour
 
     }
 
-    public void AttackComplete()
+    private void AttackComplete()
     {
         isAttacking = false;
 
+    }
+
+    private void AvoidFinish()
+    {
+        isAvoiding = false;
     }
 
     public void AttackComboReset()
