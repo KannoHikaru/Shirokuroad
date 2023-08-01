@@ -13,6 +13,7 @@ public class MonsterController : MonoBehaviour
     public EnemyAnimationManager eAnm;
     private bool isAttacking;
     private bool isAttackPossibled;
+    public bool firstInIsAttackPossibled;
 
 
     // Start is called before the first frame update
@@ -83,20 +84,27 @@ public class MonsterController : MonoBehaviour
         if(tempState == EnemyAnimationManager.EnemyState.Idle && !isAttacking)
         {
             //isAttackPossibled = false;
+            firstInIsAttackPossibled = false;
             navMeshAgent.isStopped = true;//動けないようにする
             eAnm.Play("Idle");
         }
         else if(tempState == EnemyAnimationManager.EnemyState.Chase && !isAttacking)
         {
             //isAttackPossibled = false;
+            firstInIsAttackPossibled = false;
             targetTransform = targetObject;//ターゲットなるオブジェクトの座標をtargetTransformに設定する
             navMeshAgent.isStopped = false;//動けるようにする
             eAnm.Play("Chase");
         }
         else if (tempState == EnemyAnimationManager.EnemyState.Attack)
         {
+            if (!firstInIsAttackPossibled)
+            {
+                isAttackPossibled = true;
+                firstInIsAttackPossibled = true;
+            }
             navMeshAgent.isStopped = true;
-            isAttackPossibled = true;
+            
 
         }
         else if(tempState == EnemyAnimationManager.EnemyState.Freeze)
@@ -146,6 +154,7 @@ public class MonsterController : MonoBehaviour
     private void ResetState()
     {
         SetState(EnemyAnimationManager.EnemyState.Idle);
+        isAttackPossibled = true;
     }
 
 }
