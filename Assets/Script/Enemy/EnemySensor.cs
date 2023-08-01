@@ -31,7 +31,7 @@ public class EnemySensor : MonoBehaviour
         {
             distance = Vector3.Distance(other.transform.position, this.transform.position);
 
-            if (distance <= 3.0f && distance >= 1.0f)
+            if (distance <= 3.0f && distance >= 0f)
             {
                 enemyMove.SetState(EnemyAnimationManager.EnemyState.Attack);
             }

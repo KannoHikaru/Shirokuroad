@@ -121,31 +121,26 @@ public class PlayerMove : MonoBehaviour
                 {
                     
                     isAttacking = true;
-                    if (count == 0)
-                    {
-                       anm.Play("Attack1");
-                    }
 
-                    if(count == 1)
-                    {
-                       anm.Play("Attack2");
-                    }
+                switch (count)
+                {
+                    case 0:
+                        anm.Play("Attack1");
+                        break;
+                    case 1:
+                        anm.Play("Attack2");
+                        break;
+                    case 2:
+                        anm.Play("Attack3");
+                        break;
 
-                    if(count == 2)
-                    {
-                       anm.Play("Attack3");
-                       
-                    }
+                }
 
                     isAttackPressed = false;
 
                     state = anm.animator.GetCurrentAnimatorStateInfo(0);
                     Invoke("AttackComplete", state.length);
-
                     count = 0;
-
-
-
                     
                 }
 
@@ -159,6 +154,7 @@ public class PlayerMove : MonoBehaviour
     private void AttackComplete()
     {
         isAttacking = false;
+        
 
     }
 
