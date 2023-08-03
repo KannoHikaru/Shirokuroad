@@ -16,6 +16,10 @@ public class MonsterController : MonoBehaviour
     public bool firstInIsAttackPossibled;
 
 
+    private AnimatorClipInfo[] animator_clipinfo1;//AnimatorClipInfo型の変数を宣言
+    private float state_time01;//float型の変数を宣言　ステートの時間取得用
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,22 +49,28 @@ public class MonsterController : MonoBehaviour
                 navMeshAgent.SetDestination(GetDestination());
             }
 
-            
-
-
             //敵の向きをプレイヤーの方向に少しずつ変える
-            //var dir = (GetDestination() - transform.position).normalized;
+            var dir = (GetDestination() - transform.position).normalized;
             //上下方向に向かないようにする
-            //dir.y = 0;
-            //Quaternion setRotation = Quaternion.LookRotation(dir);
+            dir.y = 0;
+            Quaternion setRotation = Quaternion.LookRotation(dir);
             //算出下方向の角度を敵の角度に設定
-            //targetTransform.rotation = Quaternion.Slerp(transform.rotation, setRotation, navMeshAgent.angularSpeed * 0.1f * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, setRotation, navMeshAgent.angularSpeed * 0.1f * Time.deltaTime);
+
         }
+
+        
+        
 
         if (isAttackPossibled)
         {
+            
+
+
             if (!isAttacking)
             {
+                
+
                 isAttacking = true;
                 eAnm.Play("Attack1");
                 isAttackPossibled = false;
@@ -69,8 +79,8 @@ public class MonsterController : MonoBehaviour
                 myAnimatorClip = eAnm.animator.GetCurrentAnimatorClipInfo(0);
                 attackDelay = myAnimatorClip[0].clip.length * animationState.normalizedTime;*/
                 var state = eAnm.animator.GetCurrentAnimatorStateInfo(0);
-                Invoke("AttackComplete", state.length);
-                Debug.Log("呼び出されているか:" + IsInvoking("AttackComplete"));
+
+                Invoke("AttackComplete", state.length * 2);
 
 
             }
@@ -91,8 +101,9 @@ public class MonsterController : MonoBehaviour
         else if(tempState == EnemyAnimationManager.EnemyState.Chase && !isAttacking)
         {
             //isAttackPossibled = false;
-            firstInIsAttackPossibled = false;
+            
             targetTransform = targetObject;//ターゲットなるオブジェクトの座標をtargetTransformに設定する
+            navMeshAgent.SetDestination(targetTransform.position); //目的地をターゲットの位置に設定
             navMeshAgent.isStopped = false;//動けるようにする
             eAnm.Play("Chase");
         }
@@ -110,7 +121,9 @@ public class MonsterController : MonoBehaviour
         else if(tempState == EnemyAnimationManager.EnemyState.Freeze)
         {
             //isAttackPossibled = false;
-            Invoke("ResetState", 1.0f);
+
+            
+            Invoke("ResetState", 2.0f);
         }
     }
     //敵キャラクターの状態を取得するためのメソッド
@@ -148,13 +161,17 @@ public class MonsterController : MonoBehaviour
     {
         
         SetState(EnemyAnimationManager.EnemyState.Freeze);
-        isAttacking = false;
+        
     }
 
     private void ResetState()
     {
         SetState(EnemyAnimationManager.EnemyState.Idle);
-        isAttackPossibled = true;
+
+        isAttacking = false;
+        firstInIsAttackPossibled = false;
+
+
     }
 
 }

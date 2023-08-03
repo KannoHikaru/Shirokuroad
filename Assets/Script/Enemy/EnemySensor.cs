@@ -33,7 +33,7 @@ public class EnemySensor : MonoBehaviour
 
             if (distance <= 3.0f && distance >= 0f)
             {
-                enemyMove.SetState(EnemyAnimationManager.EnemyState.Attack);
+                enemyMove.SetState(EnemyAnimationManager.EnemyState.Attack, other.gameObject.transform);
             }
             else if (distance > 3.0f)
             {
