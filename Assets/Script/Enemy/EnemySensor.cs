@@ -31,14 +31,19 @@ public class EnemySensor : MonoBehaviour
         {
             distance = Vector3.Distance(other.transform.position, this.transform.position);
 
-            if (distance <= 3.0f && distance >= 0f)
+            if (distance <= 3.0f && distance >= 0f && !(enemyMove.currentstate == EnemyAnimationManager.EnemyState.Freeze))
             {
                 enemyMove.SetState(EnemyAnimationManager.EnemyState.Attack, other.gameObject.transform);
             }
-            else if (distance > 3.0f)
+            else if (distance > 3.0f && enemyMove.currentstate == EnemyAnimationManager.EnemyState.Idle)
             {
                 enemyMove.SetState(EnemyAnimationManager.EnemyState.Chase, other.gameObject.transform);
                 
+            }
+
+            if(enemyMove.currentstate == EnemyAnimationManager.EnemyState.Freeze)
+            {
+                enemyMove.SetDestination(other.gameObject.transform.position);
             }
 
             

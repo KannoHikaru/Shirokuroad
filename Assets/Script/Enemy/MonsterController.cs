@@ -6,38 +6,36 @@ using UnityEngine.AI;
 public class MonsterController : MonoBehaviour
 {
 
-    private EnemyAnimationManager.EnemyState currentstate;//キャラの状態
+    public EnemyAnimationManager.EnemyState currentstate;//キャラの状態
     private Transform targetTransform;//ターゲットの情報
     private NavMeshAgent navMeshAgent;//NavMeshAgentコンポーネント
     private Vector3 destination;//目的地の位置情報を格納するためのパラメータ
     public EnemyAnimationManager eAnm;
-    private bool isAttacking;
     private bool isAttackPossibled;
-    public bool firstInIsAttackPossibled;
 
 
-    private AnimatorClipInfo[] animator_clipinfo1;//AnimatorClipInfo型の変数を宣言
-    private float state_time01;//float型の変数を宣言　ステートの時間取得用
 
 
     // Start is called before the first frame update
     void Start()
     {
+        
+
         //キャラのNavMeshAgentコンポーネントとnavMeshAgentを関連付ける
         navMeshAgent = GetComponent<NavMeshAgent>();
 
         //初期状態をIdleに設定する
         SetState(EnemyAnimationManager.EnemyState.Idle);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(isAttacking);
 
-        Debug.Log("呼び出されているか:" + IsInvoking("AttackComplete"));
+        Debug.Log(currentstate);
 
-        if (currentstate == EnemyAnimationManager.EnemyState.Chase)
+        if (currentstate == EnemyAnimationManager.EnemyState.Chase || currentstate == EnemyAnimationManager.EnemyState.Freeze)
         {
             if(targetTransform == null)
             {
@@ -59,71 +57,67 @@ public class MonsterController : MonoBehaviour
 
         }
 
-        
-        
-
-        if (isAttackPossibled)
-        {
-            
 
 
-            if (!isAttacking)
-            {
-                
 
-                isAttacking = true;
-                eAnm.Play("Attack1");
-                isAttackPossibled = false;
+        //if (isAttackPossibled)
+        //{
 
-                /*animationState = eAnm.animator.GetCurrentAnimatorStateInfo(0);
-                myAnimatorClip = eAnm.animator.GetCurrentAnimatorClipInfo(0);
-                attackDelay = myAnimatorClip[0].clip.length * animationState.normalizedTime;*/
-                var state = eAnm.animator.GetCurrentAnimatorStateInfo(0);
+        // eAnm.Play("Attack1");
 
-                Invoke("AttackComplete", state.length * 2);
+        /*animationState = eAnm.animator.GetCurrentAnimatorStateInfo(0);
+        myAnimatorClip = eAnm.animator.GetCurrentAnimatorClipInfo(0);
+        attackDelay = myAnimatorClip[0].clip.length * animationState.normalizedTime;*/
+        //var state = eAnm.animator.GetCurrentAnimatorStateInfo(0);
+
+        //Invoke("AttackComplete", state.length);
 
 
-            }
-        }
+
+        //}
     }
 
     public void SetState(EnemyAnimationManager.EnemyState tempState,Transform targetObject = null) //設定されたときに呼ばれる処理
     {
         currentstate = tempState;
 
-        if(tempState == EnemyAnimationManager.EnemyState.Idle && !isAttacking)
+        if(tempState == EnemyAnimationManager.EnemyState.Idle && !isAttackPossibled)
         {
-            //isAttackPossibled = false;
-            firstInIsAttackPossibled = false;
             navMeshAgent.isStopped = true;//動けないようにする
             eAnm.Play("Idle");
         }
-        else if(tempState == EnemyAnimationManager.EnemyState.Chase && !isAttacking)
+        else if(tempState == EnemyAnimationManager.EnemyState.Chase && !isAttackPossibled)
         {
-            //isAttackPossibled = false;
             
             targetTransform = targetObject;//ターゲットなるオブジェクトの座標をtargetTransformに設定する
             navMeshAgent.SetDestination(targetTransform.position); //目的地をターゲットの位置に設定
             navMeshAgent.isStopped = false;//動けるようにする
             eAnm.Play("Chase");
         }
-        else if (tempState == EnemyAnimationManager.EnemyState.Attack)
+        else if (tempState == EnemyAnimationManager.EnemyState.Attack && !isAttackPossibled)
         {
-            if (!firstInIsAttackPossibled)
+            isAttackPossibled = true;
+
+            if (isAttackPossibled)
             {
-                isAttackPossibled = true;
-                firstInIsAttackPossibled = true;
+                eAnm.Play("Attack1");
+
+                var state = eAnm.animator.GetCurrentAnimatorStateInfo(0);
+
+                Invoke("AttackComplete", 5.09f);
             }
+
             navMeshAgent.isStopped = true;
+            
             
 
         }
         else if(tempState == EnemyAnimationManager.EnemyState.Freeze)
         {
-            //isAttackPossibled = false;
 
-            
-            Invoke("ResetState", 2.0f);
+           
+
+            Invoke("ResetState", 0.25f);
         }
     }
     //敵キャラクターの状態を取得するためのメソッド
@@ -166,11 +160,8 @@ public class MonsterController : MonoBehaviour
 
     private void ResetState()
     {
+        isAttackPossibled = false;
         SetState(EnemyAnimationManager.EnemyState.Idle);
-
-        isAttacking = false;
-        firstInIsAttackPossibled = false;
-
 
     }
 
