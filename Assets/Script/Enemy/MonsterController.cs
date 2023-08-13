@@ -117,7 +117,7 @@ public class MonsterController : MonoBehaviour
 
            
 
-            Invoke("ResetState", 0.25f);
+            Invoke("ResetState", 0.50f);
         }
     }
     //敵キャラクターの状態を取得するためのメソッド
