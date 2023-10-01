@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9e2f340cdc9b9141af3758776f624bd, type: 3}
   m_Name: EnemyStatusSO
   m_EditorClassIdentifier: 
-  hp: 0
-  mp: 0
-  strength: 0
-  diffence: 0
+  enemyStatusList:
+  - name: Mutant
+    hp: 10
+    strength: 30
+    diffence: 1
+    exp: 0

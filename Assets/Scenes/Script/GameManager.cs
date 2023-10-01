@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -8,9 +10,15 @@ public class GameManager : MonoBehaviour
     public GameObject[] whiteWorldObjects;
     public GameObject[] blackWorldObjects;
     public GameObject playerCamera;
+    PlayerData playerData = new PlayerData();
+    public PlayerStatusProcess playerStatus;
+    [SerializeField] PlayerStatusSO playerStatusSO;
 
     MeshRenderer floorMr;
     public static GameManager instance = null;
+
+    
+
     // Start is called before the first frame update
 
     private void Awake() //startÇÊÇËêÊÇ…åƒÇŒÇÍÇÈÇΩÇﬂÅAñúÇ™àÍstartä÷
@@ -125,6 +133,35 @@ public class GameManager : MonoBehaviour
 
             playerCamera.GetComponent<UnityEngine.Camera>().backgroundColor = Color.white;
         }
+    }
+
+    public void SavePlayerData()
+    {
+        StreamWriter writer;
+        playerData.hp = playerStatus.MAXHP;
+        playerData.lv = playerStatus.CURRENTLV;
+        playerData.statusPoint = playerStatus.CURRENTSTATUSPOINT;
+
+        string jsonstr = JsonUtility.ToJson(playerData);
+
+        writer = new StreamWriter(Application.dataPath + "PlayerData.json", false);
+        writer.Write(jsonstr);
+        writer.Flush();
+        writer.Close();
+    }
+
+    public void LoadPlayerData()
+    {
+        string datastr = "";
+        StreamReader reader;
+
+        reader = new StreamReader(Application.dataPath + "PlayerData.json");
+        datastr = reader.ReadToEnd();
+        reader.Close();
+
+        playerData = JsonUtility.FromJson<PlayerData>(datastr);
+        playerStatusSO.LoadPlayerData(playerData);
+
     }
 
 }

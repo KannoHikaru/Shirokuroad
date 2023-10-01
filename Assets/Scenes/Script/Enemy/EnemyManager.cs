@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    public static EnemyManager instance;    // シングルトン用の変数
+    [Header("EnemyStatusSOのスクリプタブル・オブジェクト")]
+    public EnemyStatusSO enemyStatusSO;
+
+    [Header("生成するアイテムのプレファブ")]
+    public GameObject[] enemyDropItemPrefabs;       // EnemyBaseに個別で持たせていたアイテムのプレファブ情報をこちらで集約して扱う
+
+    [SerializeField] PlayerStatusProcess psp;
+
     public AllEnemyDataBase allEnemyData;
     private List<GameObject> enemyList;
     MeshRenderer enemyMr;
@@ -31,6 +40,21 @@ public class EnemyManager : MonoBehaviour
     private float gameTime = 0f;
 
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        // このゲームオブジェクトをシングルトンにし、かつ、シーン遷移しても破棄されないようにします
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
         interval = GetRandomTime();
@@ -58,7 +82,7 @@ public class EnemyManager : MonoBehaviour
             foreach (GameObject enemy in enemyList)
             {
                 enemyMr = enemy.GetComponent<MeshRenderer>();
-                enemyMr.material.color = new Color(0f,0f,0f, 0.0f);
+                enemyMr.material.color = new Color(0f, 0f, 0f, 0.0f);
             }
         }
         else
@@ -79,12 +103,12 @@ public class EnemyManager : MonoBehaviour
         //経過時間が生成時間になったとき(生成時間より大きくなったとき)
         if (time > interval)
         {
-            
+
             int ei = Random.Range(0, allEnemyData.allEnemyList.Count);
             //enemyをインスタンス化する(生成する)
             GameObject enemy = Instantiate(allEnemyData.allEnemyList[ei].enemy);
             enemyList.Add(enemy);
-            
+
             //生成した敵の座標をランダムに決定する
             enemy.transform.position = GetRandomPosition();
             //経過時間を初期化して再度時間計測を始める
@@ -92,7 +116,7 @@ public class EnemyManager : MonoBehaviour
             //次に発生する時間間隔をランダムに決定する
             interval = GetRandomTime();
 
-            
+
         }
     }
 
@@ -106,5 +130,23 @@ public class EnemyManager : MonoBehaviour
 
         //Vector3型のPositionを返す
         return new Vector3(0, 0.5f, 0f);
+    }
+
+    public EnemyStatusSO.EnemyStatus GetEnemyStatus(string enemyName)
+    {
+        foreach(EnemyStatusSO.EnemyStatus enemyStatus in enemyStatusSO.enemyStatusList)
+        {
+            if(enemyStatus.NAME == enemyName)
+            {
+                return enemyStatus;
+            }
+        }
+
+        return null;
+    }
+
+    public void PlayerAddEXP(int exp)
+    {
+        psp.AddEXP(exp);
     }
 }

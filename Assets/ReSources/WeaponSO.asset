@@ -9,14 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7cf154e1ffbcf04cb7edaaf68f61938, type: 3}
-  m_Name: PlayerStatrusSO
+  m_Script: {fileID: 11500000, guid: b68161c12f1e9e64bbf792ddccbe3626, type: 3}
+  m_Name: WeaponSO
   m_EditorClassIdentifier: 
-  lv: 8
-  hp: 4
-  mp: 0
-  strength: 10
-  magicStrength: 0
-  diffence: 2
-  exp: 0
-  statusPoint: 0
+  weaponStatusList:
+  - name: 
+    strength: 0
+    weapontype: 0
