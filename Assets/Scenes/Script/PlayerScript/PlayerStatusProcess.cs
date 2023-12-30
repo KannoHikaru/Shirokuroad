@@ -34,6 +34,7 @@ public class PlayerStatusProcess : MonoBehaviour,IDamageable
     public int MAXHP { get => maxHP; }
     public int CURRENTLV { get => currentLV; }
 
+
     public int CURRENTSTATUSPOINT { get => currentStatusPoint; }
 
     public void Damage(int strength)

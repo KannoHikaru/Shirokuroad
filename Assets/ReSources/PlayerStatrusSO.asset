@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7cf154e1ffbcf04cb7edaaf68f61938, type: 3}
   m_Name: PlayerStatrusSO
   m_EditorClassIdentifier: 
-  lv: 8
-  hp: 4
+  lv: 1
+  hp: 10
   mp: 0
   strength: 10
   magicStrength: 0
   diffence: 2
   exp: 0
-  statusPoint: 0
+  statusPoint: 10

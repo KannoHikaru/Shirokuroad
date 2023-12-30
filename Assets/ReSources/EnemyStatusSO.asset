@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyStatusList:
   - name: Mutant
-    hp: 10
-    strength: 30
+    hp: 1
+    strength: 10
     diffence: 1
     exp: 0

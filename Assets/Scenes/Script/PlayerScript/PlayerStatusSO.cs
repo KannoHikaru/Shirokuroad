@@ -28,6 +28,8 @@ public class PlayerStatusSO : ScriptableObject
     public void LoadPlayerData(PlayerData playerData)
     {
         lv = playerData.lv;
+        hp = playerData.hp;
+        statusPoint = playerData.statusPoint;
 
     }
 }
